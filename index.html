@@ -84,11 +84,11 @@ var bar2 = new ProgressBar.Line("#progress1", {
                 prediction[i].className + ": " + prediction[i].probability.toFixed(2);
             if(i<1){
                 bar1.animate(prediction[i].probability)
-                label1Container.childNodes[i].innerHTML = classPrediction;
+                label1Container.innerHTML = classPrediction;
             }
             else{
                 bar2.animate(prediction[i].probability)
-                label2Container.childNodes[i].innerHTML = classPrediction;
+                label2Container.innerHTML = classPrediction;
             }
         }
     }
