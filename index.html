@@ -16,6 +16,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 <script type="text/javascript">
+let initStatus=false;
     //progress bar  https://jsfiddle.net/kimmobrunfeldt/k5v2d0rr/
     var bar1 = new ProgressBar.Line("#progress1", {
   strokeWidth: 2,
@@ -47,6 +48,10 @@ var bar2 = new ProgressBar.Line("#progress1", {
 
     // Load the image model and setup the webcam
     async function init() {
+        if(initStatus){
+        return;
+    }
+        initStatus=true;
         const modelURL = URL + "model.json";
         const metadataURL = URL + "metadata.json";
 
@@ -83,10 +88,10 @@ var bar2 = new ProgressBar.Line("#progress1", {
         const prediction = await model.predict(webcam.canvas);
         for (let i = 0; i < maxPredictions; i++) {
             if(i<1){
-                bar1.animate(prediction[i].probability/100)
+                bar1.animate(prediction[i].probability)
             }
             else{
-                bar2.animate(prediction[i].probability/100)
+                bar2.animate(prediction[i].probability)
             }
             const classPrediction =
                 prediction[i].className + ": " + prediction[i].probability.toFixed(2);
